@@ -1,0 +1,212 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{textcomp}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Entrenamiento de una red neuronal convolucional utilizando un set de datos sintetico para reconocimiento de objetos\\
+}
+
+
+\author{\IEEEauthorblockN{Jesus Eduardo Ortiz Sandoval}
+\IEEEauthorblockA{\textit{Departamento de electr\'onica} \\
+\textit{Universidad Tecnica Federico Santa Maria}\\
+Valparaiso, Chile \\
+jesus.ortiz@sansano.usm.cl}
+}
+
+\maketitle
+
+\begin{abstract}
+This paper is an development about a existing technique 3D modelling for building a dataset for image recognition using covolutional neural networks (Deep Learning), it's really interesting the results and the evaluation of the results since a dataset real and dataset sintetic.
+\end{abstract}
+
+
+\begin{IEEEkeywords}
+vision, deep learning, convolutional, groundtruth, 3D models
+\end{IEEEkeywords}
+
+\section{Introducci\'on}
+
+En la actualidad  el mayor problema del aprendizaje supervisado de máquinas, que ha demostrado ser un gran calificador con innumerables posibles aplicaciones en la sociedad, es la construcción del set de datos para entrenamiento y para pruebas. Si hablamos solamente en el ramo de la visión por computador y se quisiera hacer el reconocimiento de una hoja, o de un producto, se necesitarían por lo menos 10.000 imágenes con diferentes escenarios y características particulares para permitir un aprendizaje correcto y tener una taza de acierto aceptable en el reconocimiento de este objeto en entornos sin control. \cite{b1}.
+
+Si la construcción de estos sets de datos se hiciera manualmente, el tiempo que podría demorar el desarrollo de un solo proyecto sería muy largo y por ende no se podría tener resultados certeros o desarrollar mejoras de los proyectos. Utilizando un software de modelado, lo que se busca es generar estos sets de datos gigantes en un tiempo reducido, por ejemplo, de una lata de Coca Cola se pueden generar 16.000 imágenes con diferentes fondos, inclinaciones e incidencias de luz en aproximadamente una hora y media en una computadora con una potencia de computo media-alta.  Esta diferencia de tiempo permite explorar múltiples opciones de desarrollo de proyectos y de productos, así como abre una incógnita muy interesante para la investigación, la cual es la optimización de los algoritmos de clasificación y seguimiento con set de datos artificiales pero que sean aplicados a situaciones reales. Ello permitiría determinar con certeza cuantos datos son necesarios, de que tipo y en qué forma para que al aplicar los algoritmos se tenga una taza de acierto alta y sea eficiente computacionalmente.
+
+Las aplicaciones a futuro que tiene este proyecto comercialmente son muchas, en el área de ventas, para las cadenas de distribución de productos tener una herramienta de reconocimiento de productos para ofrecer servicios innovadoras es muy importante, Amazon Go es un ejemplo de que en los nuevos mercados es importante cubrir las necesidades del consumidor. En otras áreas también se puede implementar y dar solución a problemáticas reales, en establecimientos donde esté prohibido el uso del teléfono celular, o en la industria minera cuando un operario se encuentra sin el equipamiento necesario, entre otras aplicaciones.
+
+\section{Estado del arte}
+En el área de la visión artificial se encuentran en desarrollo y finalizados muchos proyectos que tienen como fin la detección, clasificación, caracterización o extracción de parámetros de diferentes objetos con una finalidad investigativa o con el ánimo de lucro mediante proyectos que tengan impacto en la sociedad.
+\subsection{Trabajos actuales}
+
+En muchos proyectos una de los principales objetivos es el de investigar la eficiencia del uso de extracción de patrones para clasificar diversidad de elementos usados en data sets \cite{b2}. En esta rama se encuentran situaciones individuales que solas son áreas de conocimiento, una que es muy relevante hace referencia al data sets con el que se va a trabajar, cuando se tienen set de datos des balanceados causan desafíos críticos creando clases negativas, clases positivas y problemas de decisión en las máquinas de aprendizaje\cite{b3}. Es  importante optimizar la construcción del set de datos que serán destinados al entrenamiento de los clasificadores,  para no desperdiciar tiempo computacional y en procura de tener una alta tasa de efectividad. En el trabajo de Piri  \cite{b3}, se hacen uso de herramientas computacionales de inteligencia artificial como lo son máquinas de soporte vectorial para hacer una optimización o arreglo de set de datos des balanceados utilizados en la minería de datos.\\
+
+En la investigación titulada “Machine Learning for gravity spy: Glitch classification and data sets.”, explican adecuadamente lo que para ellos es la preparación del set de datos, así como la relevancia para poder encontrar resultados adecuados, y mencionan que una de las grandes dificultades es poder construir de una manera adecuada un set de datos que cumpla con todos los posibles niveles de complejidad necesarios para hacer clasificacion de una manera asertiva \cite{b4}, y se plantean 22 normas que deben ser cumplidas al momento de construir el set de datos. \\
+
+En la sección de visión por computador, son muchos los proyectos que se han desarrollado, y el aprendizaje de máquinas ha demostrado ser de mucha utilidad cuando se quieren reconocer características únicas o propias de los objetos, como color, tamaño o texturas, en el trabajo titulado “Gaussian derivative models and ensemble extreme Learning machine for texture image classification” se habla de la importancia de la clasificación de imágenes, como un tópico importante del procesamiento de imágenes, donde cada pixel puede tener una o diferentes clases dependientes de la textura de los objeto, y en donde la clasificación de estas texturas juega un papel fundamental en la identificación de productos para las industrias \cite{b5}.\\
+
+Con el uso del Deep Learning en el aprendizaje de computadores se ha búsqueda emular el comportamiento humano para optimizar los procesos en la inteligencia artificial. En muchas de las investigaciones los profesionales siempre han querido crear un modelo que intente replicar completamente el sentido de la visión del ser humano, construyendo una solución multi-dimensional donde no solo la imagen sea el centro del estudio, también otras variables, como luz, distancia etc \cite{b6}. Al tener sistemas multivariables, es esencial el procesamiento correcto de la información para poder tener resultados relevantes.\\
+
+Muchos estudios se han centrado en la limitaci\'on del manejo de grandes datos para el aprendizaje de sistemas supervisados, cuando los datos son inciertos, o no se tiene suficiente informaci\'on del proceso se hace necesario la implementaci\'on de un aprendizaje autom\'atico que cumpla con la convergencia de hip\'otesis y de comportamiento de un proceso \cite{b7}. En un escenario con la creación de familias autom\'aticas de aprendizaje se puede implementar un algoritmo que recibiendo algunas indicaciones de entrada se tenga un estructura autom\'atica de entrada-salida de un sistema generando la adaptabilidad que es necesaria en muchos proyectos actuales\cite{b8}.\\
+
+ El Deep Learning constituye una t\'ecnica moderna para el procesamiento de im\'agenes y an\'alisis de datos, con resultados prometedores y un gran potencial en diferentes ramos como lo son la salud, agricultura, producci\'on de alimentos, transporte, seguridad entre otros \cite{b9}.  Es importante resaltar que actualmente ya un gran número de industrias est\'an remplazando la clasificaci\'on visual humana, por computadoras que permitan una relaci\'on costo-beneficio mayor, en esta \'area el Deep Learning demuestra tener grandes aplicaciones pues comparado con los clasificadores normales, las redes neuronales convolutivas,  no solo tienen altos porcentajes de acierto, tambi\'en permiten extraer caracter\'isticas y patrones para otro tipo de an\'alisis construyendo escenarios de alta complejidad.\cite{b10}\cite{b11}.\\
+
+\section{Datos sint\'eticos y GAN}
+En la red podemos encontrar muchisimos tipos de algoritmos para reconocimiento de objetos, algunos de los mas interesantes fueron nombrados en la secci\'on anterior, la novedad de este trabajo radica principalmente es en el set de datos para entrenar la red neuronal. Mucho se habla del algebra tensorial y de la necesidad de tener cientos de gigas de informaci\'on asi como potentes computadoras que permitan procesar grandes cantidades de datos, asi se estudia la BigData o DataScience, pero ese es el principal problema de todo algoritmo, los datos, en bases de datos cientificas podemos encontrar millones de datos, etiquetados, registrados que nos permiten entrenar un clasificador bueno, pero si quisieramos tener una aplicaci\'on real que genere ingresos debemos recurrir a construir este set de datos por cuenta propia, si quisieramos reconocer todos los elementos de un supermercado, tal como en este momento lo hace Amazon Go con su proyecto de tienda sin cajeros en Seattle, EEUU, necesitariamos tomar millones de imagenes a los miles de productos que se encuentran, esto no es pr\'actico y suele ser uno de los grandes inconvenientes para aplicar y desarrollar este tipo de estrategias. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.16]{ESTRUCTURA.png}
+	\caption{Estructura de una red GAN}
+	\label{fig:Resultado GAN}
+\end{figure}
+\subsection{GAN}
+Las redes generativas antag\'onicas (Generative Antagonique Network) fueron introducidas por Ian Goodfellow en el año 2014, y seg\'un expertos en AI es la mejor idea que ha surgido en los \'ultimos 10 a\~nos. La teor\'ia nos indica que este modelo posee dos redes, una discriminatoria y una generativa, el objetivo de cada una es hacer fallar lo m\'aximo posible a la otra \cite{b12},  red generativa debe ser capaz de producir una imagen o un dato que al ser evaluado por el modelo discriminatorio la probabilidad de que la red acierte sea \begin{equation}
+D=\frac{1}{2}
+\end{equation}
+esto simplemente nos indica que es tan bueno el generador que su funci\'on discriminativa es completamente aleatoria.\\
+Existe un gran numero de parametros para el entrenamiento de una red neuronal profunda, sin embargo nunca son suficientes debido a la estructura de estos algoritmos y para poder encontrar resultados aceptables se debe recurrir a dejar a un lado caracteristicas que en algun punto puede ser relevantes \cite{b13}. Este tipo de redes tiene una gran respuesta para problemas de segmentaci\'on en imagenes, asi como en desafios de super alta resoluci\'on \cite{b12}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{1.png}
+	\caption{Imagenes generadas vs reales}
+	\label{fig:Resultado GAN}
+\end{figure}
+ En la figura 1 podemos encontrar el resultado de una implementacion de una variante de GAN, donde el modelo generativo con base a la informaci\'on recibida genero unas figuras que facilmente podrian ser clasificadas como datos reales, en la actualidad se encuentran demasiadas versiones de este tipo de redes ACGAN, SGAN,WGAN,TGAN, CGAN, etc, en cada modelo encontramos diferentes tipos de funci\'on de activaci\'on o modulos que se añaden para tener mejor rendimiento o una aplicaci\'on especifica.
+ 
+ \subsection{Datos sinteticos}
+ Esta idea fue desarrollada en la Universidad de Massachussets utilizando una herramienta que se llama ADOBE 3DS MAX, que tiene licencia gratuita para los estudiantes, este entorno de desarrollo permite hacer render 3D, diseños, modelos y correr scripts, en estas porciones de codigo podemos permitirnos con un modelo 3D, fondos y texturas generar imagenes en JPEG de 3 capas, tambien se puede manejar el formato  PNG con la cuarta capa de tranparencia. 
+ \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[scale=0.3]{2.png}
+ 	\caption{Imagen real y renderizada\cite{b15}}
+ 	\label{fig:Render}
+ \end{figure}
+  
+ Los set de datos son muy importantes en la investigaci\'on de vision por computador, cada vez con el crecimiento exponencial de la ley de Moore's se necesitan grandes cantidades de datos, los modelos 3D gratuitos en estos momentos inundan internet, a parte de tambien ser facilmente implementables, en la figura 2 encontramos una imagen real y otra generada en la computadora, hablamos de set de datos sintetico al poder obtenerlo todo virtualmente, sin necesidad de tomar una fotografia del mundo real, generando nuestras imagenes a partir de un modelado 3D.
+ 
+\section{Metodologia}
+
+La metodologia del proyecto la podemos resumir en tres estaciones, modelamiento, groundtruth(set de datos) y la red neuronal que incluye entrenamiento del modelo, validacion y evaluacion del algoritmo. 
+
+\subsection{Modelamiento}
+
+Para hacer el modelamiento de los objetos se va a utilizar el software ADOBE MAX 3Ds, cuya imagen de presentaaci\'on se observa en la figura 3, para comenzar con el desarrollo del proyecto se plantean varios tipos de productos a utilizar, botellas de vino, desodorantes, alimentos congelados, pero surgen unos problemas respecto a las etiquetas, tomando este referente se decide empezar a hacer el set de datos con envases de papas pringles de tres sabores \textbf{QUESO}, \textbf{CEBOLLA} y \textbf{CLASICAS}. La idea es hacer un diseño general con solo la textura de la tapa y luego aplicar diversas texturas al envase para generar el set de datos.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{4.png}
+    \includegraphics[scale=0.2]{5.png}
+	\includegraphics[scale=0.2]{6.png}
+	\includegraphics[scale=0.2]{7.png}
+	\includegraphics[scale=0.2]{8.png}
+	\caption{Render 3D pringles}
+	\label{fig:Resultado GAN}
+\end{figure}
+
+Una vez que se tienen las texturas correctamente armadas y verificadas se diseña una estructura de textura para aplicar al modelo, una vez que se hace este paso, se hace la union de los elementos a traves de la herramienta ProBoolean, para poder hacer este paso siempre es necesario que la textura se aplique de forma individual, si se omite este paso, el resultado de la textura es incorrecto y genera errores en el diseño. A continuaci\'on en la figura 4 estan los diseños finalizados de las 4 clases posibles para el entrenamiento.
+
+
+\subsection{Groundtruth}
+
+Para generar el grountruth de las clases correspondientes y el set de datos para el entrenamiento de la red neuronal con objetivo de identificar y clasificar las papas pringles con 3 clases, una vez que se ha terminado el modelo se procede a la parte de programaci\'on que permite obtener el dataset correspondiente para poder implementar el entrenamiento del modelo neuronal.
+Como primer elemento se elabora un script para el programa ADOBE 3DS MAX que permite la renderizacion de los archivos, en esta secci\'on de codigo se definen los parametos necesarios para la generaci\'on de los datos, numero de poses, iluminaci\'on de la escena, rotaci\'on del elemento y el fondo que se va a aplicar al renderizado.\\
+A diferencia de lo que se realiza normalmente, se encontro un set de fondos de supermercados y productos superior a 3k de imagenes, estos se utilizaran para generar las imagenes de entrenamiento, tambien del mismo tamaño,con los mismos parametros se genera una imagen con fondo blanco, esta es una herramienta para el algoritmo de etiquetado y extraccion de parametros para el groundtruth adecuado.  Se producen 25.000 imagenes de cada clase, la computadora en la que se ejecuta el algoritmo toma un tiempo aproximado de tres horas en generar las 25.000 imagenes.\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{10.jpg}
+	\includegraphics[scale=0.2]{11.jpg}
+	\caption{Modelos de clases con texturas}
+	\label{fig:Resultado Groundtruth}
+\end{figure}
+En la figura 5 observamos el resultado del modelamiento, en la parte superior el modelo pringles de cebolla con fondo blanco y en segunda opci\'on con los mismos parametros de orientaci\'on, iluminacion, ubicaci\'on pero con unos de los fondos aleatoriamente escogidos. Con las imagenes generadas se escribe un algoritmo en octave que utilizando homografia, transformaci\'on de planos con la ayuda de las imagenes en fondo blanco se extraen las siguientes caracteristicas:
+\begin{equation}
+Class, Width, Height, Xmin, Ymin, Xmax, Ymax
+\end{equation}
+Estos elementos son exportados en un archivo .txt para cada elemento .jpeg, es necesario tomar un paso mas de pre-procesamiento y es la construccion de los archivos .csv, y de la distribuci\'on de los datos para entrenamiento y para testear.
+Es importante distribuir los datos en carpetas de train y test para generar los archivos record correspondientes, se tienen los 50.000 .txt equivalentes a cada imagen, con fondo blanco y fondo real, con algoritmos construidos en python se hacen dos procesos.\\
+Construccion de datos para test y train, lo ideal es tomar aproximadamente 30 \% de los datos para las carpetas test y train, al ser un numero muy grande de datos y si se quiere tambien sacar archivos aleatorios un script que recorre la carpeta y va copiando archivos a los directorios correspondientes es necesario. 
+Luego con las carpetas test, train y labels listas con los elementos se estructura un programa que cree los archivos csv,estos deben tener una estructura fija que solicita la red convolucional y es incluir en orden los siguientes parametros \textbf{filename, width, heigth, class, xmin, ymin, xmax, ymax}, esto es necesario para poder ejecutar el script tfrecords, que construye el set de datos completo que es el que se va a ejecutar en el algoritmo correspondiente, este archivo de datos contiene unos tensores de altas dimesiones y es parte fundamental para lograr tener un entrenamiento exitoso.\\
+\subsection{Segmentaci\'on y Algoritmo }\label{SCM}
+Existen muchas estructuras de machine learning para hacer reconocimiento de objetos, mobilnet, inception, resnet, etc. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{9.png}
+	\caption{Modelos inception }
+	\label{fig:Resultado GAN}
+\end{figure}
+Para este proyecto se elige el siguiente modelo \textbf{faster rcnn inception v2 coco}, ya que en los backgrounds correspondientes se hacen excelentes comentarios sobre el rendimientos y la estructura de la red convolucional, se configuran los siguientes parametros:
+\subitem \textbf{Clases=cebolla, queso, clasica}
+\subitem \textbf{Schedule= 9000 y 12000}
+\subitem \textbf{Steps =20.000}
+\subitem \textbf{Minimum loss= 0.2}
+
+Con los parametros establecidos se comienza el entrenamiento del modelo, la computadora en la que se ejecuta tiene una GPU de 2GB y 8GB de memoria RAM, se tiene un tiempo aproximado de 54 segundos para cada paso de entrenamiento, para alcanzar el objetivo de minima perdida se dejo haciendo iteraciones por aproximadamente 11 horas. 
+
+\section*{Resultados}
+En este beanchmarking se debe resaltar que el principal resultado es encontrar si la propuesta es viable, en el cronograma de trabajo junto con los objetivos del proyecto se marca que para este punto del proyecto el objetivo principal es poder determinar si con el set de datos sintetico se puede entrenar un modelo neuronal que logre diferenciar elementos reales utilizando vision por computador.
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.2]{13.png}
+	\includegraphics[scale=0.2]{14.png}
+		\includegraphics[scale=0.2]{15.png}
+	\includegraphics[scale=0.2]{16.png}
+		\includegraphics[scale=0.2]{17.png}
+	\caption{Resultados del algoritmo}
+	\label{fig:Resultado Groundtruth}
+\end{figure}
+El modelo que se obtiene como resultado despues de 1000 pasos de entrenamiento tiene una tasa promedio de perdida de 0.5 en todos los ultimos modelos, aunque es un numero bastante aceptable, se desea poder mejorar este parametro ya que un excelente clasifiador debe estar en el orden de 0.2.
+\begin{table}[htbp]
+	\caption{Tabla de resultados}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\textbf{Numero}&\multicolumn{3}{|c|}{\textbf{Resultados algoritmos}} \\
+			\cline{2-4} 
+			\textbf{muestras} & \textbf{\textit{Evaluacion imagen}}& \textbf{\textit{Evaluacion video}}& \textbf{\textit{Camara}} \\
+			\hline
+			300& 92\%&70\% &82\%  \\
+			\hline
+			\multicolumn{4}{l}{Resultados resumidos.}
+		\end{tabular}
+		\label{tab1}
+	\end{center}
+\end{table}
+En la figura 7 se observan algunas de las pruebas que se le efectuaron al modelo entrenado, es de resaltar que el ambiente en el que se realizaron a las pruebas con la camara del notebook fue un ambiente no controlado, esto para verificar la robustes del algoritmo, un elemento que se advierte en todas las imagenes resultantes es un error en el boundbox del elemento y es elemento crucial para intentar mejorar en el transcurso del proyecto, como primera medida se debe poder determinar en que radica el fallo, para poder corregirlo y optimizarlo.
+Es necesario mejorar el algoritmo de segementaci\'on de la red neuronal, puede ser con el uso de super pixeles o el uso de un batch mayor, aunque para poder implementar esto es necesario contar con una GPU mucho mas poderosa.
+La clasificaci\'on promedio de las diferentes pruebas que se realizaron como se puede ver en el video de resultados y en la seccion anterior muestra un rendimiento superior al 80\% aunque es un un numero muy interesante tomando en cuenta que se esta evaluando es la conformaci\'on del set de datos, tambien abre puertas hacia las mejoras que se plantearan en la siguiente secci\'on.
+El entrenamiento del modelo neuronal tuvo una duraci\'on de cerca de 10 horas, con un set de datos relativamente pequeño, ya que en el grountruth y conformaci\'on de todas las imagenes para trabajo se cuentan con aproximadamente 300k imagenes etiquetadas y con sus respectivos archivos test.record y train.record, el modelo que se esta evaluando fue entrenado solo con 300 imagenes, ya que si se intentaba hacer el entrenamiento con todo el set de datos se podrian encontrar problemas y/o fallos, como primera medida lo que se desea es tener un rendimiento estable para pasar a hacer las implementaciones y mejoras del proyecto.
+
+\section*{Mejoras y conclusiones}
+El objetivo de esta primera etapa del proyecto en el beanchmarking era hacer una evaluaci\'on de los algoritmos que se van a trabajar  y las mejoras que se pueden obtener a partir de los resultados obtenidos en esta fase. Era interesante primero poder determinar si la red neuronal lograba discriminar datos reales capturados desde la camara web y evaluados con los parametros obtenidos desde el modelo entrenado con datos sinteticos, como se expreso en los resultados, aca se tienen resultados muy interesantes, ya que el algoritmo efectivamente reconoce las 3 clases con las que se entreno el modelo con una eficacia superior al noventa por ciento, pero aparecen las diferentes variaciones que se quieren hacer.\\
+\subitem \textbf{Set de datos hibridos.}
+En este caso lo que se quiere hacer a partir de los datos creados es ampliar aun mas este numero de imagenes mediante una red GAN que se entrene con estos datos y produzca un numero mayor de imagenes, para la siguiente construcci\'on de entrenamiento y validaci\'on se desea evaluar el comportamiento de diferentes set de datos, solo imagenes renderizadas, imagenes generadas e imagenes renderizas e imagenes reales con imagenes renderizadas, y poder determinar de que forma en una aplicaci\'on real se pueden encontrar resultados aceptables. Ademas si esta tecnica funciona, tambien se podria implementar en los modelos de representaci\'on que se basan en la sombra de los objetos, pues una red GAN podria generar muchas imagenes nuevas, produciendo un mejor resultado.\\
+\subitem \textbf{Representaci\'on del objeto}
+Puede que sea un problema de homografia o del modelo de representaci\'on de los objetos encontramos que en la aplicaci\'on el boundbox no correspondia en su totalidad con el objeto, para evaluar esto queremos aplicar otros conceptos de homografia y modelo de representaci\'on de objetos en el algoritmo train.py de tensorflow, tambien se puede replantear la forma en la que se esta realizando el etiquetado de las imagenes, hacer pruebas teoricas y determinar si se encuentra algun grado de error que luego es directamente proporcional con el resultado final.\\
+\subitem \textbf{¿Machine o Deep}. 
+Ahora es interesante plantear si se puede entrenar otro tipo de red convolucional que tenga un rendimiento igual o mayor al model actualmente entrenado, un gran inconveniente que presento este modelo es que ante un set de datos realmente pequeño 300 elementos, demoraba cada step de entrenamiento alrededor de 1 minuto, y aunque cada entrenamiento es diferente segun su taza de perdida, se espera para tener un modelo realmente estable al menos 20.000 pasos, en este aspecto es realmente bueno considerar si el problema radica en las capacidades de la computadora, o se pueden cambiar parametros de configuraci\'on del modelo o sencillamente es buena idea probar otro tipo de red.
+
+\begin{thebibliography}{00}
+\bibitem{b1}	F. Kurtulmuş and H. Ünal, “Discriminating rapeseed varieties using computer vision and machine learning,” Expert Syst. Appl., vol. 42, no. 4, pp. 1880–1891, 2015.
+\bibitem{b2} 	P. Mcallister, H. Zheng, R. Bond, and A. Moorhead, “Combining deep residual neural network features with supervised machine learning algorithms to classify diverse food image datasets,” Comput. Biol. Med., vol. 95, no. May 2017, pp. 217–233, 2018.
+\bibitem{b3} S. Piri, D. Delen, and T. Liu, “A synthetic informative minority over-sampling (SIMO) algorithm leveraging support vector machine to enhance learning from imbalanced datasets,” Decis. Support Syst., vol. 106, pp. 15–29, 2018.
+\bibitem{b4}	S. Bahaadini et al., “Machine learning for Gravity Spy: Glitch classification and dataset,” Inf. Sci. (Ny)., vol. 444, pp. 172–186, 2018.
+\bibitem{b5}	Y. Song et al., “Gaussian derivative models and ensemble extreme learning machine for texture image classification,” Neurocomputing, vol. 277, pp. 53–64, 2017.
+\bibitem{b6}	W. Li, Z. Lv, D. Cosker, and Y. liang Yang, “Learning system in real-time machine vision,” Neurocomputing, vol. 288, pp. 1–2, 2018.
+\bibitem{b7}	A. Ali and F. Yangyu, “Unsupervised feature learning and automatic modulation classification using deep learning model,” Phys. Commun., vol. 25, pp. 75–84, 2017.
+\bibitem{b8}	S. Jain, E. Kinber, and F. Stephan, “Automatic learning from positive data and negative counterexamples,” Inf. Comput., vol. 255, pp. 45–67, 2017.
+\bibitem{b9}	A. Kamilaris and F. X. Prenafeta-Boldú, “Deep Learning in Agriculture: A Survey,” Comput. Electron. Agric., vol. 147, no. 1, pp. 70–90, 2018.
+\bibitem{b10}	C. Affonso, A. L. D. Rossi, F. H. A. Vieira, and A. C. P. de L. F. de Carvalho, “Deep learning for biological image classification,” Expert Syst. Appl., vol. 85, pp. 114–122, 2017.
+\bibitem{b11}	Q. Zhang, L. T. Yang, Z. Chen, and P. Li, “A survey on deep learning for big data,” Inf. Fusion, vol. 42, no. August 2017, pp. 146–157, 2018.
+\bibitem{b12}	I. J. Goodfellow, J. Pouget-abadie, M. Mirza, B. Xu, and D. Warde-farley, “Generative Adversarial Nets,” pp. 1–9.
+\bibitem{b13}	A. Odena, C. Olah, and J. Shlens, “Conditional Image Synthesis with Auxiliary Classifier GANs,” 2017.
+\bibitem{b14}	M. Hohenfellner, B. Hadaschik, and J. Radtke, “Adversarial Networks for the Detection of Aggressive Prostate Cancer,” 2017.
+
+
+\end{thebibliography}
+\end{document}
