@@ -9,6 +9,20 @@ En este trabajo se pretende establecer unas bases teóricas para el estudio de l
 Esta imágen guarda una relación muy parecida con una foto real, ya que se hace una composición del modelamiento 3D del producto con una serie de 3000 fondos de supermercados.  
 En total se obtienen 25.000 imagenes desde el software antes de comenzar a hacer el pre-procesamiento de la información.
 Lo primero que vamos a realizar es la extracción de caracteristicas de estas imagenes, cada imagen con fondo controlado tiene su misma imagen (ubicación, rotación, iluminación) con fondo blanco, esto para poder realizar la segmentación para generar el dataset de entrenamiento para la aplicación de visión por computador.
-
+import shutil,os,re
+from matplotlib import pyplot as plt
+import cv2
+import numpy as np
+import tensorflow as tf
+import sys
+sys.path.append("..")
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+import io
+import pandas as pd
+from PIL import Image
+from object_detection.utils import dataset_util
+from collections import namedtuple, OrderedDict
 Una vez que se tienen todas las bibliotecas que se pueden utilizar en nuestro programa el siguiente paso es extraer las caracteristicas de nuestra imagen respectiva, pero con fondo blanco.
 ![Papas pringles clasicas)](02.jpg)
