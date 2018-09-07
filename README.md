@@ -1,5 +1,11 @@
-# Feature selection of sintetic dataset for GAN and computer vision applications
-This is our project (FERRAN-JESUS) students of USM in Chile about dataset sintetic in application for deep learning.
-https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10
-https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html
-
+# Feature selection of dataset for Deep Learning and applications in computer vision.
+### Jesus Eduardo Ortiz Sandoval
+### Ferran Cancio Pujols
+### Ph.D Student
+### Universidad Tecnica Federico Santa Maria
+---
+En este trabajo se pretende establecer unas bases teóricas para el estudio de los datasets sinteticos en aplicaciones de deep learning, el dataset sintetico es generado a partir de un software de renderizado 3D (Adobe MAX 3DS con licencia estudiantil). A continuación podemos observar una imágen generada desde el software de renderizado 3D.
+![Papas pringles cebolla)](images/01.jpg)
+Esta imágen guarda una relación muy parecida con una foto real, ya que se hace una composición del modelamiento 3D del producto con una serie de 3000 fondos de supermercados.  
+En total se obtienen 25.000 imagenes desde el software antes de comenzar a hacer el pre-procesamiento de la información.
+Lo primero que vamos a realizar es la extracción de caracteristicas de estas imagenes, cada imagen con fondo controlado tiene su misma imagen (ubicación, rotación, iluminación) con fondo blanco, esto para poder realizar la segmentación para generar el dataset de entrenamiento para la aplicación de visión por computador.
